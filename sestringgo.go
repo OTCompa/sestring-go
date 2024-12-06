@@ -2,6 +2,7 @@ package sestringgo
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/OTCompa/sestring-go/ffxiv"
 )
@@ -63,6 +64,9 @@ func Parse(str []byte, lang ffxiv.Language) (string, error) {
 		currPos = payload.EndPos
 	}
 	ret += string(str[currPos:])
+
+	// replace any carriage returns with a newline
+	ret = strings.Replace(ret, "\x0D", "\n", -1)
 
 	return ret, nil
 }
